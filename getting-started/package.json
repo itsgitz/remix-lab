@@ -1,5 +1,6 @@
 {
   "name": "getting-started",
+  "type": "module",
   "packageManager": "yarn@4.9.1",
   "dependencies": {
     "@remix-run/node": "^2.16.8",
