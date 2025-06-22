@@ -1,7 +1,16 @@
 {
   "name": "getting-started",
+  "module": "index.ts",
   "type": "module",
-  "packageManager": "yarn@4.9.1",
+  "private": true,
+  "devDependencies": {
+    "@remix-run/dev": "^2.16.8",
+    "@types/bun": "latest",
+    "vite": "^6.3.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
   "dependencies": {
     "@remix-run/node": "^2.16.8",
     "@remix-run/react": "^2.16.8",
@@ -9,9 +18,5 @@
     "isbot": "4",
     "react": "18",
     "react-dom": "18"
-  },
-  "devDependencies": {
-    "@remix-run/dev": "^2.16.8",
-    "vite": "^6.3.5"
   }
 }
