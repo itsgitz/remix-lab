@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
   Outlet,
   useLoaderData,
+  redirect,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import appStyleHref from "./app.css?url";
@@ -26,7 +27,7 @@ export const loader = async () => {
 
 export const action = async () => {
   const contact = await createEmptyContact();
-  return { contact };
+  return redirect(`/contacts/${contact.id}/edit`);
 };
 
 export default function App() {
