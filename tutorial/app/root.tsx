@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
   Outlet,
   useLoaderData,
+  useNavigation,
   redirect,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
@@ -32,6 +33,7 @@ export const action = async () => {
 
 export default function App() {
   const { contacts } = useLoaderData<typeof loader>();
+  const navigation = useNavigation();
 
   return (
     <html lang="en">
@@ -42,7 +44,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div id="sidebar">
+        <div
+          id="sidebar"
+          className={navigation.state === "loading" ? "loading" : ""}
+        >
           <h1>Remix Contacts</h1>
           <div>
             <Form id="search-form" role="search">
