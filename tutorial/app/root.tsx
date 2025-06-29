@@ -9,11 +9,13 @@ import {
   useLoaderData,
   useNavigation,
   redirect,
+  useSubmit,
 } from "@remix-run/react";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import appStyleHref from "./app.css?url";
 import { getContacts, createEmptyContact } from "./data";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+// import { useEffect, useState } from "react";
 
 export const links: LinksFunction = () => [
   {
@@ -37,6 +39,7 @@ export const action = async () => {
 export default function App() {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
+  const submit = useSubmit();
 
   // the query now needs to be kept in state
   const [prevQ, setPrevQ] = useState(q);
@@ -50,12 +53,12 @@ export default function App() {
     setQuery(q || "");
   }
 
-  useEffect(() => {
-    const searchField = document.getElementById("q");
-    if (searchField instanceof HTMLInputElement) {
-      searchField.value = q || "";
-    }
-  }, [q]);
+  // useEffect(() => {
+  //   const searchField = document.getElementById("q");
+  //   if (searchField instanceof HTMLInputElement) {
+  //     searchField.value = q || "";
+  //   }
+  // }, [q]);
 
   return (
     <html lang="en">
@@ -72,7 +75,11 @@ export default function App() {
         >
           <h1>Remix Contacts</h1>
           <div>
-            <Form id="search-form" role="search">
+            <Form
+              id="search-form"
+              role="search"
+              onChange={(e) => submit(e.currentTarget)}
+            >
               <input
                 id="q"
                 aria-label="Search contacts"
