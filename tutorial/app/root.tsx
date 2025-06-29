@@ -40,10 +40,15 @@ export default function App() {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const submit = useSubmit();
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
 
   // the query now needs to be kept in state
   const [prevQ, setPrevQ] = useState(q);
   const [query, setQuery] = useState(q || "");
+
+  // console.log("query", query);
 
   // We can avoid using `useEffect` to synchronize the query
   // by using a separate piece of state to store the previous
@@ -82,6 +87,7 @@ export default function App() {
             >
               <input
                 id="q"
+                className={searching ? "loading" : ""}
                 aria-label="Search contacts"
                 placeholder="Search"
                 defaultValue={q || ""}
@@ -89,7 +95,7 @@ export default function App() {
                 name="q"
                 onChange={(e) => setQuery(e.currentTarget.value)}
               />
-              <div id="search-spinner" aria-hidden hidden={true} />
+              <div id="search-spinner" aria-hidden hidden={!searching} />
             </Form>
             <Form method="post">
               <button type="submit">New</button>
